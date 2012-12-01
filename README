@@ -1,0 +1,22 @@
+thumbnailer - make thumbnail images in bulk
+
+Execution:
+{env variables} thumbnailer <size> <directory>
+
+Environment variables:
+
+RECURSIVE - when set to 1 will work on all nested directories
+
+FILE_PATTERN - set the output file name pattern
+    Default FILE_PATTERN is %t_t.%e
+    where:
+    - %t is the original file's base name
+    - %e is the original file's type suffix (jpg for example)
+
+FILE_TYPES - a pipe (|) separated list of supported file types
+    By defualt: jpg|jpeg|png|tif|tiff|gif
+    Case insensitive.
+
+Examples:
+thumbnailer "100x100" Pictures
+RECURSIVE=1 FILE_PATTERN="thumbnail_%t.%e" thumbnailer "100x100" Pictures

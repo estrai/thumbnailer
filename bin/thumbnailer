@@ -1,0 +1,52 @@
+#!/usr/bin/env zsh --extendedglob
+#                    ^ case insensitive globs (for FILE_TYPES)
+
+# thumbnailer v0.1
+# by Daniel Lukasiak <estrai@estrai.com>
+
+if [[ $# -ne 2 ]]; then
+        echo "thumbnailer - make thumbnail images in bulk"
+        echo
+        echo "Execution:"
+        echo "{env variables} thumbnailer <size> <directory>"
+        echo
+        echo "Environment variables:"
+        echo
+        echo "RECURSIVE - when set to 1 will work on all nested directories"
+        echo
+        echo "FILE_PATTERN - set the output file name pattern"
+        echo "    Default FILE_PATTERN is %t_t.%e"
+        echo "    where:"
+        echo "    - %t is the original file's base name"
+        echo "    - %e is the original file's type suffix (jpg for example)"
+        echo
+        echo "FILE_TYPES - a pipe (|) separated list of supported file types"
+        echo "    By defualt: jpg|jpeg|png|tif|tiff|gif"
+        echo "    Case insensitive."
+        echo 
+        echo "Examples:"
+        echo "thumbnailer \"100x100\" Pictures"
+        echo "RECURSIVE=1 FILE_PATTERN=\"thumbnail_%t.%e\" thumbnailer \"100x100\" Pictures"
+        echo
+
+        exit
+fi
+
+SIZE=$1
+DIR="$2/"
+
+if [[ -z $FILE_PATTERN ]]; then
+        FILE_PATTERN="%t_t.%e"
+fi
+
+if [[ -z $FILE_TYPES ]]; then
+        FILE_TYPES="jpg|jpeg|png|tif|tiff|gif"
+fi
+
+IMGGLOB="*(.)"
+if [[ $RECURSIVE -eq 1 ]]; then
+        IMGGLOB="**/*(.)"
+fi
+IMGGLOB=${IMGGLOB}(${FILE_TYPES})
+
+/usr/bin/env convert -thumbnail ${SIZE} ${~DIR}${~IMGGLOB} -set filename:f ${FILE_PATTERN} +adjoin '%[filename:f]'
