@@ -20,3 +20,7 @@ FILE_TYPES - a pipe (|) separated list of supported file types
 Examples:
 thumbnailer "100x100" Pictures
 RECURSIVE=1 FILE_PATTERN="thumbnail_%t.%e" thumbnailer "100x100" Pictures
+
+DEPENDENCIES
+ - ImageMagick: http://www.imagemagick.org/
+ - zsh: http://www.zsh.org/
