@@ -1,8 +1,10 @@
-#!/usr/bin/env zsh --extendedglob
-#                    ^ case insensitive globs (for FILE_TYPES)
+#!/usr/bin/env zsh
 
 # thumbnailer v0.1
 # by Daniel Lukasiak <estrai@estrai.com>
+
+# case insensitive globs
+setopt extendedglob
 
 if [[ $# -ne 2 ]]; then
         echo "thumbnailer - make thumbnail images in bulk"
